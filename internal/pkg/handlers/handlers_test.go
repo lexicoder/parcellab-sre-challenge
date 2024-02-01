@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestSalutationHandler(t *testing.T) {
+func TestSalutationHandlerDefaultSalutation(t *testing.T) {
 	req, err := http.NewRequest("GET", "/", nil)
 	if err != nil {
 		t.Fatal(err)
@@ -22,6 +22,22 @@ func TestSalutationHandler(t *testing.T) {
 
 	assert.Equal(t, rr.Code, http.StatusOK)
 	assert.Equal(t, rr.Body.String(), "Hi")
+}
+
+func TestSalutationHandlerCustomSalutation(t *testing.T) {
+	salutation := "Dear Sir or Madam"
+	t.Setenv("SALUTATION", salutation)
+	req, err := http.NewRequest("GET", "/", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	cfg := config.NewConfig()
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(SalutationHandler(cfg.Salutation))
+	handler.ServeHTTP(rr, req)
+
+	assert.Equal(t, rr.Code, http.StatusOK)
+	assert.Equal(t, rr.Body.String(), salutation)
 }
 
 func TestHealthCheckHandler(t *testing.T) {
