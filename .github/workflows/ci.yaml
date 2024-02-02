@@ -11,6 +11,8 @@ on:
 
 permissions:
   contents: write
+  packages: write
+  id-token: write
 
 env:
   REGISTRY: ghcr.io
@@ -82,6 +84,9 @@ jobs:
           
       - name: Load docker image into kind cluster
         run: kind load docker-image ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}:0.1.${{ github.run_number }} --name chart-testing
+
+      - name: Run helm lint (lint)
+        run: helm lint charts/*
 
       - name: Run chart-testing (lint)
         run: ct lint --target-branch ${{ github.event.repository.default_branch }}
