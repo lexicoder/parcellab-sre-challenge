@@ -96,7 +96,7 @@ jobs:
         env:
           DIGEST: ${{ steps.build.outputs.digest }}
           TAGS: ${{ steps.docker_meta.outputs.tags }}
-        if: github.ref == github.event.repository.default_branch && github.event_name == 'push'
+        if: github.ref == /refs/head/${{ github.event.repository.default_branch }} && github.event_name == 'push'
         run: |
           images=""
           for tag in ${TAGS}; do
@@ -107,7 +107,7 @@ jobs:
       - name: Push docker image
         id: push
         uses: docker/build-push-action@v5
-        if: github.ref == github.event.repository.default_branch && github.event_name == 'push'
+        if: github.ref == /refs/head/${{ github.event.repository.default_branch }} && github.event_name == 'push'
         with:
           context: .
           tags: ${{ steps.docker_meta.outputs.tags }}
@@ -118,6 +118,6 @@ jobs:
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
-        if: github.ref == github.event.repository.default_branch && github.event_name == 'push'
+        if: github.ref == /refs/head/${{ github.event.repository.default_branch }} && github.event_name == 'push'
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
