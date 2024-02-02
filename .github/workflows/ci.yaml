@@ -170,5 +170,5 @@ jobs:
       
       - name: Add helm charts repo
         run: |
-          helm repo add https://lexicoder.github.io/parcellab-sre-challenge
+          helm repo add ${{ github.event.repository.name }} https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
           helm repo update
