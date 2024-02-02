@@ -89,7 +89,7 @@ jobs:
       - name: Set chart and app version
         run: |
           sed -i 's/version: 0.1.0/version: 0.1.'$GITHUB_RUN_NUMBER'/g' charts/*/Chart.yaml
-          sed -i 's/appVersion: "1.16.0"/appVersion: '\"0.1.'$GITHUB_RUN_NUMBER'\"'/g' */Chart.yaml
+          sed -i 's/appVersion: "1.16.0"/appVersion: '\"0.1.'$GITHUB_RUN_NUMBER'\"'/g' charts/*/Chart.yaml
 
       - name: Set app version
         run: |
