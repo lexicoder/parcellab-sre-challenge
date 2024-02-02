@@ -84,7 +84,7 @@ jobs:
         run: |
           docker images
           kind get clusters
-          kind load docker-image ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}:latest --name chart-testing
+          kind load docker-image ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}:${{ github.run_number }} --name chart-testing
       
       - name: Set chart and app version
         run: |
