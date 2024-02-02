@@ -64,7 +64,7 @@ jobs:
             type=ref,event=branch
             type=sha,format=short,prefix=
             type=raw,value=latest
-            type=raw,value=0.1.${{ env.GITHUB_RUN_NUMBER }}
+            type=raw,value=0.1.${{ github.run_number }}
 
       - name: Build docker image
         id: build-push
@@ -85,6 +85,14 @@ jobs:
           docker images
           kind get clusters
           kind load docker-image ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}:latest --name chart-testing
+      
+      - name: Set chart and app version
+        run: |
+          sed -i 's/version: 0.1.0/version: 0.1.'$GITHUB_RUN_NUMBER'/g' charts/*/Chart.yaml
+          sed -i 's/appVersion: "1.16.0"/appVersion: '\"0.1.'$GITHUB_RUN_NUMBER'\"'/g' */Chart.yaml
+
+      - name: Set app version
+        run: |
 
       - name: Run chart-testing (lint)
         run: ct lint --target-branch ${{ github.event.repository.default_branch }}
