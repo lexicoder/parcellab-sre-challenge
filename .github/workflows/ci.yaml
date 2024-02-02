@@ -32,6 +32,8 @@ jobs:
 
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v3
+        with:
+          skip-pkg-cache: true  # Due to "Cannot open: File exists error" in action output https://github.com/golangci/golangci-lint-action/issues/807
 
       - name: Run Gosec Security Scanner
         uses: securego/gosec@master
