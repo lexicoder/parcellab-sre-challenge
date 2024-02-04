@@ -22,10 +22,10 @@ env:
 jobs:
   test-and-release:
     name: Run tests and release artifacts
-    runs-on: ubuntu-latest
+    runs-on: arc-runner-set
     steps:
       - uses: actions/checkout@v4
-        with:  
+        with:
           fetch-depth: 0
 
       - uses: actions/setup-go@v5
