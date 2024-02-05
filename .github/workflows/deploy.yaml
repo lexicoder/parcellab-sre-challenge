@@ -53,4 +53,4 @@ jobs:
       - name: Install/Upgrade helm chart
         env:
           DOCKER_CONFIG_JSON_BASE64: ${{ steps.create-registry-secret.outputs.DOCKER_CONFIG_JSON_BASE64 }}
-        run: helm upgrade --atomic -i ${{ inputs.environment }} -n ${{ inputs.environment }} ${{ github.event.repository.name }}/${{ github.event.repository.name }} --set image.tag=${GITHUB_SHA::7} --set dockerConfigJson=${{ env.DOCKER_CONFIG_JSON_BASE64 }} --set env.SALUTATION="${{ inputs.salutation }}" --set ingress.hosts[0].host="${{ inputs.environment }}.parcellab.demo.riffies.com"
+        run: helm upgrade --atomic -i ${{ inputs.environment }} -n ${{ inputs.environment }} ${{ github.event.repository.name }}/${{ github.event.repository.name }} --set image.tag=${GITHUB_SHA::7} --set dockerConfigJson=${{ env.DOCKER_CONFIG_JSON_BASE64 }} --set env.SALUTATION="${{ inputs.salutation }}" --set "ingress.hosts[0].host=${{ inputs.environment }}.parcellab.demo.riffies.com"
