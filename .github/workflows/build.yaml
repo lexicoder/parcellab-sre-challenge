@@ -161,23 +161,11 @@ jobs:
         with:
           sarif_file: 'trivy-results.sarif'
 
-  customer-a:
+  deploy:
+    strategy:
+      matrix:
+        stage: [customer-a, customer-b, customer-c]
     uses: ./.github/workflows/deploy.yaml
     needs: [test-and-release]
     with:
-      environment: customer-a
-      salutation: "Hi"
-
-  customer-b:
-    uses: ./.github/workflows/deploy.yaml
-    needs: [test-and-release]
-    with:
-      environment: customer-b
-      salutation: "Dear Sir or Madam"
-
-  customer-c:
-    uses: ./.github/workflows/deploy.yaml
-    needs: [test-and-release]
-    with:
-      environment: customer-c
-      salutation: "Moin"
+      environment: ${{ matrix.stage }}
