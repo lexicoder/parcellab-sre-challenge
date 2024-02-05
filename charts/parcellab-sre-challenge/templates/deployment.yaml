@@ -25,6 +25,7 @@ spec:
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
+        - name: {{ include "parcellab-sre-challenge.fullname" . }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "parcellab-sre-challenge.serviceAccountName" . }}
