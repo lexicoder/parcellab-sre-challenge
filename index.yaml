@@ -2,6 +2,21 @@ apiVersion: v1
 entries:
   parcellab-sre-challenge:
   - apiVersion: v2
+    appVersion: 0.1.20
+    created: "2024-02-05T20:14:30.837469774Z"
+    description: A Helm chart for Kubernetes
+    digest: a42eae3302de8b323b72f65ec61cffc3a53ef37693b16fe51853f2dafd460341
+    home: https://github.com/lexicoder/parcellab-sre-challenge
+    icon: data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDgiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgZmlsbD0ibm9uZSI+PHBhdGggZD0iTTkuOTYyIDM1Ljg0N1YxNy4zNzNsLTUuMTI0IDIuOTk0VjM4LjczbDExLjk1NCA3LjAwNVYzOS44M2wtNi44My0zLjk4M3oiIGZpbGw9IiMwMDAwMjMiLz48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTI0LjE5MiA5LjA0TDExLjY3IDE2LjM4NFYzNC44Nmw1LjEyMyAyLjk5NFYyMC4xOThsNi41NDYgMy44NDJ2Ny40TDE4LjUgMjguNTg5djUuOTA0bDUuNjkyIDMuMzMzIDEyLjUyMy03LjM0NVYxNi4zNTZMMjQuMTkyIDkuMDR6bS02LjQ4OSA5LjcxN2w2LjQ5LTMuODE0IDYuNDg4IDMuODE0LTYuNDg5IDMuODE0LTYuNDg5LTMuODE0em0xMy44OSA4Ljg0MmwtNi41NDcgMy44NDJWMjQuMDRsNi41NDYtMy44NDJ2Ny40eiIgZmlsbD0iIzAwMDAyMyIvPjwvc3ZnPg==
+    maintainers:
+    - email: dimeji.isola@gmail.com
+      name: lexicoder
+    name: parcellab-sre-challenge
+    type: application
+    urls:
+    - https://github.com/lexicoder/parcellab-sre-challenge/releases/download/parcellab-sre-challenge-0.1.20/parcellab-sre-challenge-0.1.20.tgz
+    version: 0.1.20
+  - apiVersion: v2
     appVersion: 0.1.19
     created: "2024-02-05T20:01:34.730098412Z"
     description: A Helm chart for Kubernetes
@@ -91,4 +106,4 @@ entries:
     urls:
     - https://github.com/lexicoder/parcellab-sre-challenge/releases/download/parcellab-sre-challenge-0.1.14/parcellab-sre-challenge-0.1.14.tgz
     version: 0.1.14
-generated: "2024-02-05T20:01:34.730122637Z"
+generated: "2024-02-05T20:14:30.837500912Z"
