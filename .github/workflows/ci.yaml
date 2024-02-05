@@ -22,7 +22,7 @@ env:
 jobs:
   test-and-release:
     name: Run tests and release artifacts
-    runs-on: arc-runner-set
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
@@ -45,18 +45,11 @@ jobs:
       - name: Run tests
         run: go test -v ./...
 
-      # - name: Set up QEMU
-      #   uses: docker/setup-qemu-action@v3
-
-      - name: Install QEMU
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y qemu-user-static
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-        with:
-          driver: kubernetes
 
       - name: Docker meta
         id: docker_meta
@@ -168,7 +161,7 @@ jobs:
 
   deploy:
     name: Deploy app
-    runs-on: ubuntu-latest
+    runs-on: arc-runner-set
     steps:
       - uses: actions/checkout@v4
         with:  
