@@ -162,7 +162,6 @@ jobs:
     uses: ./.github/workflows/deploy.yaml
     needs: [test-and-release]
     with:
-      tag: 0.1.${{ github.run_number }}
       environment: customer-a
       salutation: "Hi"
 
@@ -170,7 +169,6 @@ jobs:
     uses: ./.github/workflows/deploy.yaml
     needs: [test-and-release]
     with:
-      tag: 0.1.${{ github.run_number }}
       environment: customer-b
       salutation: "Dear Sir or Madam"
 
@@ -178,6 +176,5 @@ jobs:
     uses: ./.github/workflows/deploy.yaml
     needs: [test-and-release]
     with:
-      tag: 0.1.${{ github.run_number }}
       environment: customer-c
       salutation: "Moin"
