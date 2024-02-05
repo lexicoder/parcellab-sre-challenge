@@ -159,6 +159,6 @@ jobs:
           sarif_file: 'trivy-results.sarif'
       
       - name: Trigger deploy workflow
-        uses: ./.github/workflows/deploy.yml
+        uses: ./.github/workflows/deploy.yaml
         with:
           tag: 0.1.${{ github.run_number }}
