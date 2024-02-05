@@ -158,8 +158,26 @@ jobs:
         with:
           sarif_file: 'trivy-results.sarif'
 
-  trigger-deploy:
+  trigger-deploy-customer-a:
     uses: ./.github/workflows/deploy.yaml
     needs: [test-and-release]
     with:
       tag: 0.1.${{ github.run_number }}
+      environment: customer-a
+      salutation: "Hi"
+
+  trigger-deploy-customer-b:
+    uses: ./.github/workflows/deploy.yaml
+    needs: [test-and-release]
+    with:
+      tag: 0.1.${{ github.run_number }}
+      environment: customer-b
+      salutation: "Dear Sir or Madam"
+
+  trigger-deploy-customer-c:
+    uses: ./.github/workflows/deploy.yaml
+    needs: [test-and-release]
+    with:
+      tag: 0.1.${{ github.run_number }}
+      environment: customer-c
+      salutation: "Moin"

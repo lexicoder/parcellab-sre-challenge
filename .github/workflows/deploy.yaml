@@ -6,6 +6,12 @@ on:
       tag:
         required: true
         type: string
+      environment:
+        required: true
+        type: string
+      salutation:
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -46,4 +52,4 @@ jobs:
       - name: Install/Upgrade helm chart
         env:
           DOCKER_CONFIG_JSON_BASE64: ${{ steps.create-registry-secret.outputs.DOCKER_CONFIG_JSON_BASE64 }}
-        run: helm upgrade -i mixaar-app-admin-frontend ${{ github.event.repository.name }}/${{ github.event.repository.name }} --set image.tag=${{ inputs.tag }} --set dockerConfigJson=$DOCKER_CONFIG_JSON_BASE64
+        run: helm upgrade --create-namespace -i ${{ inputs.environment }} -n ${{ inputs.environment }} ${{ github.event.repository.name }}/${{ github.event.repository.name }} --set image.tag=${{ inputs.tag }} --set dockerConfigJson=$DOCKER_CONFIG_JSON_BASE64 --set env.SALUTATION=${{ inputs.salutation }}

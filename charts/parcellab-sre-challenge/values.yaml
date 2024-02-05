@@ -12,6 +12,8 @@ image:
 
 dockerConfigJson: ""
 
+env: {}
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
