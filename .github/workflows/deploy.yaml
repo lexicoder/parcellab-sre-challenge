@@ -16,6 +16,11 @@ permissions:
   id-token: write
   security-events: write
 
+env:
+  customer-a: "Hi"
+  customer-b: "Dear Sir or Madam"
+  customer-c: "Moin"
+
 jobs:
   deploy:
     name: Deploy app
@@ -53,4 +58,4 @@ jobs:
       - name: Install/Upgrade helm chart
         env:
           DOCKER_CONFIG_JSON_BASE64: ${{ steps.create-registry-secret.outputs.DOCKER_CONFIG_JSON_BASE64 }}
-        run: helm upgrade --atomic -i ${{ inputs.environment }} -n ${{ inputs.environment }} ${{ github.event.repository.name }}/${{ github.event.repository.name }} --set image.tag=${GITHUB_SHA::7} --set dockerConfigJson=${{ env.DOCKER_CONFIG_JSON_BASE64 }} --set env.SALUTATION="${{ env.SALUTATION }}" --set "ingress.hosts[0].host=${{ inputs.environment }}.parcellab.demo.riffies.com" --set "ingress.hosts[0].paths[0].path=/" --set "ingress.hosts[0].paths[0].pathType=ImplementationSpecific"
+        run: helm upgrade --atomic -i ${{ inputs.environment }} -n ${{ inputs.environment }} ${{ github.event.repository.name }}/${{ github.event.repository.name }} --set image.tag=${GITHUB_SHA::7} --set dockerConfigJson=${{ env.DOCKER_CONFIG_JSON_BASE64 }} --set env.SALUTATION="$${{ inputs.environment }}" --set "ingress.hosts[0].host=${{ inputs.environment }}.parcellab.demo.riffies.com" --set "ingress.hosts[0].paths[0].path=/" --set "ingress.hosts[0].paths[0].pathType=ImplementationSpecific"
