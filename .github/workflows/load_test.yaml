@@ -16,7 +16,7 @@ permissions:
 jobs:
   deploy:
     name: Deploy app
-    runs-on: arc-runner-set
+    runs-on: ubuntu-latest
     environment:
       name: ${{ inputs.environment }}
       url: https://${{ inputs.environment }}.parcellab.demo.riffies.com
