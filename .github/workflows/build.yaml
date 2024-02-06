@@ -174,10 +174,22 @@ jobs:
           sarif_file: 'trivy-results.sarif'
 
   deploy:
+    name: Deploy all environments
     strategy:
       matrix:
         stage: [customer-a, customer-b, customer-c]
     uses: ./.github/workflows/deploy.yaml
+    needs: [test-and-release]
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    with:
+      environment: ${{ matrix.stage }}
+
+  load-test:
+    name: Run load tests for all environments
+    strategy:
+      matrix:
+        stage: [customer-a, customer-b, customer-c]
+    uses: ./.github/workflows/load_test.yaml
     needs: [test-and-release]
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     with:
