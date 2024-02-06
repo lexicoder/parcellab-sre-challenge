@@ -32,20 +32,28 @@ jobs:
 
       - uses: actions/setup-go@v5
         with:
-          go-version-file: 'go.mod'
+          go-version-file: 'src/go.mod'
 
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v3
         with:
+          working-directory: src
           skip-pkg-cache: true  # Due to "Cannot open: File exists error" in action output https://github.com/golangci/golangci-lint-action/issues/807
 
       - name: Run Gosec Security Scanner
         uses: securego/gosec@master
         with:
-          args: ./...
+          args: '-no-fail -fmt sarif -out results.sarif ./...'
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: results.sarif
 
       - name: Run tests
-        run: go test -v ./...
+        run: |
+          cd src
+          go test -v ./...
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -68,7 +76,8 @@ jobs:
         id: build
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: src/
+          file: Dockerfile
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
           load: true
@@ -103,6 +112,7 @@ jobs:
       
       - name: Login to github container registry
         uses: docker/login-action@v3
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -111,9 +121,10 @@ jobs:
       - name: Push docker image
         id: push
         uses: docker/build-push-action@v5
-        if: github.ref == /refs/head/${{ github.event.repository.default_branch }} && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         with:
-          context: .
+          context: src/
+          file: Dockerfile
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
           push: true
@@ -122,12 +133,13 @@ jobs:
 
       - name: Install Cosign
         uses: sigstore/cosign-installer@v3.4.0
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
       
       - name: Sign the published Docker image
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         env:
           DIGEST: ${{ steps.build.outputs.digest }}
           TAGS: ${{ steps.docker_meta.outputs.tags }}
-        if: github.ref == /refs/head/${{ github.event.repository.default_branch }} && github.event_name == 'push'
         run: |
           images=""
           for tag in ${TAGS}; do
@@ -136,20 +148,20 @@ jobs:
           cosign sign --yes ${images}
 
       - name: Configure Git
-        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
-        if: github.ref == /refs/head/${{ github.event.repository.default_branch }} && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
-        if: github.ref == /refs/head/${{ github.event.repository.default_branch }} && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         with:
           image-ref: '${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}:0.1.${{ github.run_number }}'
           format: 'sarif'
@@ -157,7 +169,7 @@ jobs:
 
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
-        if: github.ref == /refs/head/${{ github.event.repository.default_branch }} && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         with:
           sarif_file: 'trivy-results.sarif'
 
@@ -167,5 +179,6 @@ jobs:
         stage: [customer-a, customer-b, customer-c]
     uses: ./.github/workflows/deploy.yaml
     needs: [test-and-release]
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     with:
       environment: ${{ matrix.stage }}
