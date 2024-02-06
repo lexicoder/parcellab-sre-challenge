@@ -53,4 +53,4 @@ jobs:
       - name: Install/Upgrade helm chart
         env:
           DOCKER_CONFIG_JSON_BASE64: ${{ steps.create-registry-secret.outputs.DOCKER_CONFIG_JSON_BASE64 }}
-        run: helm upgrade -i --atomic ${{ inputs.environment }} ${{ github.event.repository.name }}/${{ github.event.repository.name }} -n ${{ inputs.environment }} -f env/${{ inputs.environment }}.yaml --set image.tag=${GITHUB_SHA::7} --set dockerConfigJson=${{ env.DOCKER_CONFIG_JSON_BASE64 }} --set "env.SALUTATION=$${{ inputs.environment }}"
+        run: helm upgrade -i --atomic ${{ inputs.environment }} ${{ github.event.repository.name }}/${{ github.event.repository.name }} -n ${{ inputs.environment }} -f env/${{ inputs.environment }}.yaml --set image.tag=${GITHUB_SHA::7} --set dockerConfigJson=${{ env.DOCKER_CONFIG_JSON_BASE64 }}
