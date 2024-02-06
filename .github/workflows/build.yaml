@@ -136,10 +136,10 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
       
       - name: Sign the published Docker image
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         env:
           DIGEST: ${{ steps.build.outputs.digest }}
           TAGS: ${{ steps.docker_meta.outputs.tags }}
-          if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: |
           images=""
           for tag in ${TAGS}; do
