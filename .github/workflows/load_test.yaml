@@ -28,12 +28,12 @@ jobs:
       - uses: grafana/k6-action@v0.3.1
         with:
           filename: loadtest.js
-          flags:  --vus 100 --duration 1m --summary-export results.json
+          flags:  --vus 100 --duration 1m --summary-export ${{ inputs.environment }}-results.json
         env:
           HOST: ${{ inputs.environment }}.parcellab.demo.riffies.com
       
 
       - uses: actions/upload-artifact@v4
         with:
-          name: results.json
-          path: results.json
+          name: ${{ inputs.environment }}-results.json
+          path: ${{ inputs.environment }}-results.json
