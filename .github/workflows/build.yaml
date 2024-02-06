@@ -23,7 +23,6 @@ env:
 
 jobs:
   test-and-release:
-    name: Run tests and release artifacts
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -174,7 +173,6 @@ jobs:
           sarif_file: 'trivy-results.sarif'
 
   deploy:
-    name: Deploy all environments
     strategy:
       matrix:
         stage: [customer-a, customer-b, customer-c]
@@ -185,7 +183,6 @@ jobs:
       environment: ${{ matrix.stage }}
 
   load-test:
-    name: Run load tests for all environments
     strategy:
       matrix:
         stage: [customer-a, customer-b, customer-c]
