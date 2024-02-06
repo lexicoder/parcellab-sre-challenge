@@ -190,7 +190,7 @@ jobs:
       matrix:
         stage: [customer-a, customer-b, customer-c]
     uses: ./.github/workflows/load_test.yaml
-    needs: [test-and-release]
+    needs: [deploy]
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     with:
       environment: ${{ matrix.stage }}
