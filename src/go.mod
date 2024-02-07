@@ -1,6 +1,6 @@
 module parcellab-sre-challenge
 
-go 1.21
+go 1.22
 
 require (
 	github.com/hellofresh/health-go/v5 v5.5.2
