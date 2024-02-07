@@ -10,6 +10,8 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
+# Set the base64 value of the registry credentials to be used to populate the image pull secret.
+# For example, the base64 value of a sample config like this {"auths":{"https://example/v1/":{"auth":"opensesame"}}}
 # dockerConfigJson: ""
 
 env: {}
