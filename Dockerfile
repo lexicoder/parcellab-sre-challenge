@@ -1,4 +1,4 @@
-FROM golang:1.21-bookworm as base
+FROM golang:1.22-bookworm as base
 
 WORKDIR $GOPATH/src/
 
