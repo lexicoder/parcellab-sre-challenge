@@ -34,7 +34,7 @@ jobs:
           go-version-file: 'src/go.mod'
 
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v3
+        uses: golangci/golangci-lint-action@v4
         with:
           working-directory: src
           skip-pkg-cache: true  # Due to "Cannot open: File exists error" in action output https://github.com/golangci/golangci-lint-action/issues/807
