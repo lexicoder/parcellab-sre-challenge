@@ -65,7 +65,7 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
   tls:
-    - secretName: wildcard-riffies-com
+    - secretName: star-parcellab-demo-riffies-com
       hosts:
         - "customer-b.parcellab.demo.riffies.com"
 
