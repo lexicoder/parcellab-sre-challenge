@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   load-test:
-    name: Deploy app
+    name: Load test app
     runs-on: ubuntu-latest
     environment:
       name: ${{ inputs.environment }}
