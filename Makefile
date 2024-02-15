@@ -16,7 +16,9 @@ init:
 	if [ $$? -ne 0 ]; then exit 1; fi
 
 test:
-	go test -v ./...
+	cd src; \
+	go test -v ./...; \
+	cd ..
 
 run:
 	cd src; \
