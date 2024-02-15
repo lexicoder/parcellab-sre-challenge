@@ -39,4 +39,4 @@ Run `kubectl port-forward svc/parcellab-sre-challenge 5000:5000` to create a por
 
 ## CI/CD
 
-The app is built, tested and deployed using GitHub Actions workflows which can be found in the `.github/workflows` folder.
+The app is built, tested and deployed using GitHub Actions workflows which can be found in the `[.github/workflows](.github/workflows)` folder.
