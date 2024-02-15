@@ -1,10 +1,10 @@
 default: build
 
 build:
-	cd src/
-	go mod download
-	go mod verify
-	CGO_ENABLED=0 go build -o ../parcellab-sre-challenge main.go
+	cd src/; \
+	go mod download; \
+	go mod verify; \
+	CGO_ENABLED=0 go build -o ../parcellab-sre-challenge main.go; \
 	cd ..
 
 build-docker:
@@ -16,8 +16,11 @@ init:
 	if [ $$? -ne 0 ]; then exit 1; fi
 
 test:
-	cd src
 	go test -v ./...
+
+run:
+	cd src; \
+	go run main.go; \
 	cd ..
 
 deploy-local: init

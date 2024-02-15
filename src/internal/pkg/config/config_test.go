@@ -1,3 +1,4 @@
+// Tests for the config package.
 package config
 
 import (
@@ -37,4 +38,10 @@ func TestConfigServerWriteTimeoutEnv(t *testing.T) {
 	t.Setenv("SERVER_WRITE_TIMEOUT", "3m")
 	cfg := NewConfig()
 	assert.Equal(t, cfg.ServerWriteTimeout, 3*time.Minute)
+}
+
+func TestConfigSalutationEnv(t *testing.T) {
+	t.Setenv("SALUTATION", "Random Salutation")
+	cfg := NewConfig()
+	assert.Equal(t, cfg.Salutation, "Random Salutation")
 }

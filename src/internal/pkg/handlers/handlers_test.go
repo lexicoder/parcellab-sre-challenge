@@ -1,3 +1,4 @@
+// Tests for the handlers handlers package.
 package handlers
 
 import (

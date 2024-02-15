@@ -1,3 +1,5 @@
+// Package config implements functions used to get the default
+// configs or create custom configs for the service.
 package config
 
 import (
@@ -5,6 +7,7 @@ import (
 	"time"
 )
 
+// Struct for configuration parameters
 type Config struct {
 	ListenPort         string
 	Salutation         string
@@ -13,6 +16,8 @@ type Config struct {
 	ServerIdleTimeout  time.Duration
 }
 
+// Return new config object with either default values or with
+// values read from environment variables
 func NewConfig() *Config {
 	serverWriteTimeout, err := getDurationFromEnv("SERVER_WRITE_TIMEOUT", "15s")
 	if err != nil {
@@ -36,6 +41,7 @@ func NewConfig() *Config {
 	}
 }
 
+// Gets an environment variable value or returns set default.
 func getEnvOrDefault(name, value string) string {
 	v := os.Getenv(name)
 	if v == "" {
@@ -44,6 +50,8 @@ func getEnvOrDefault(name, value string) string {
 	return v
 }
 
+// Gets a environment variable value as a time.Duration value
+// or returns a set default.
 func getDurationFromEnv(key, value string) (time.Duration, error) {
 	v := getEnvOrDefault(key, value)
 	return time.ParseDuration(v)

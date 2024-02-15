@@ -21,21 +21,41 @@ make
 make test
 ```
 
-### Run locally
+## Run locally
 
-#### Requirements
+### Requirements
 
-* [Docker](https://docs.docker.com/engine/install/)
-* [Kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
-* [Helm](https://helm.sh/docs/intro/install/)
+- [Docker](https://docs.docker.com/engine/install/)
+- [Helm](https://helm.sh/docs/intro/install/)
+- A local kubernetes cluster if you intend to deploy locally. [Kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation) coudl be used for this.
 
-#### Steps
+### Run binary
+
+```bash
+make run
+```
+
+Access the service from `http://localhost:5000`
+
+### Run in kubernetes cluster
 
 ```bash
 make deploy-local
 ```
 
-Run `kubectl port-forward svc/parcellab-sre-challenge 5000:5000` to create a port forward that will allow you access the app on `http://localhost:5000`
+Run `kubectl port-forward svc/parcellab-sre-challenge 5000:5000` to create a port forward that will allow you test the endpoint on `http://localhost:5000`
+
+### Configuration
+
+The service is primarily configured through a set of environment variables.
+
+| Environment Variable | Description                                                                             | Required | Default |
+| -------------------- | --------------------------------------------------------------------------------------- | -------- | ------- |
+| SERVER_PORT          | This configures the port the service listens on.                                        | `false`  | `8080`  |
+| SALUTATION           | This configures the saluttation returned by the service                                 | `false`  | `Hi`    |
+| SERVER_IDLE_TIMEOUT  | [IdleTimeout](https://pkg.go.dev/net/http#Server.IdleTimeout) setting for http server   | `false`  | `30s`   |
+| SERVER_READ_TIMEOUT  | [ReadTimeout](https://pkg.go.dev/net/http#Server.ReadTimeout) setting for http server   | `false`  | `15s`   |
+| SERVER_WRITE_TIMEOUT | [WriteTimeout](https://pkg.go.dev/net/http#Server.WriteTimeout) setting for http server | `false`  | `15s`   |
 
 ## CI/CD
 
