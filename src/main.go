@@ -14,8 +14,8 @@ func main() {
 
 	r := http.NewServeMux()
 
-	r.Handle("/", handlers.SalutationHandler(cfg.Salutation))
-	r.Handle("/health", health.HealthGet())
+	r.HandleFunc("GET /", handlers.SalutationHandler(cfg.Salutation))
+	r.HandleFunc("GET /health", health.HealthGet())
 
 	s := &http.Server{
 		Addr:         fmt.Sprintf(":%s", cfg.ListenPort),

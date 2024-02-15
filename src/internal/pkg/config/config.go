@@ -27,14 +27,13 @@ func NewConfig() *Config {
 		panic(err)
 	}
 
-	cfg := Config{
+	return &Config{
 		ListenPort:         getEnvOrDefault("SERVER_PORT", "5000"),
 		Salutation:         getEnvOrDefault("SALUTATION", "Hi"),
 		ServerWriteTimeout: serverWriteTimeout,
 		ServerReadTimeout:  serverReadTimeout,
 		ServerIdleTimeout:  serverIdleTimeout,
 	}
-	return &cfg
 }
 
 func getEnvOrDefault(name, value string) string {
