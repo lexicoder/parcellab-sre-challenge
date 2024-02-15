@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   load-test:
-    name: Deploy app
+    name: Load test app
     runs-on: ubuntu-latest
     environment:
       name: ${{ inputs.environment }}
@@ -32,7 +32,6 @@ jobs:
         env:
           HOST: ${{ inputs.environment }}.parcellab.demo.riffies.com
       
-
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.environment }}-results.json
