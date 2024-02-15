@@ -31,7 +31,6 @@ jobs:
           flags:  --vus 100 --duration 1m --summary-export ${{ inputs.environment }}-results.json
         env:
           HOST: ${{ inputs.environment }}.parcellab.demo.riffies.com
-      
 
       - uses: actions/upload-artifact@v4
         with:
