@@ -34,7 +34,7 @@ jobs:
           sudo apt-get install unzip
 
       - name: Set up Helm
-        uses: azure/setup-helm@v3
+        uses: azure/setup-helm@v4
       
       - name: Add helm charts repo
         run: |
